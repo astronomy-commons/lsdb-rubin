@@ -1,7 +1,5 @@
-import pytest
-import pickle
-from lsdb_rubin import tract_patch_search
 from lsdb.catalog import Catalog
+from lsdb_rubin.tract_patch_search import tract_patch_search
 
 Catalog.tract_patch_search = tract_patch_search
 

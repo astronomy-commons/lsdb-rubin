@@ -1,10 +1,6 @@
 import math
 
 import nested_pandas as npd
-from hats.catalog import TableProperties
-from astropy.visualization.wcsaxes import WCSAxes
-from mocpy import MOC
-
 from lsdb.core.search.abstract_search import AbstractSearch
 from lsdb.core.search.polygon_search import polygon_filter
 from lsdb.types import HCCatalogTypeVar
@@ -28,6 +24,7 @@ def tract_patch_search(
     efficient spatial queries.
 
     Args:
+        self (Catalog): The catalog to be filtered.
         skymap (lsst.skymap.BaseSkyMap): The skymap specifying tracts and patches
             within the sky.
         tract (int): The tract ID within the given skymap.
@@ -79,7 +76,7 @@ class TractPatchSearch(AbstractSearch):
         if self.patch is not None:
             self.patch_info = self.tract_info.getPatchInfo(self.patch)
 
-    def filter_hc_catalog(self, hc_structure: HCCatalogTypeVar) -> MOC:
+    def filter_hc_catalog(self, hc_structure: HCCatalogTypeVar):
         """Filters the catalog pixels according to given tract/patch"""
 
         # Get the vertices of either the tract or the patch.
@@ -101,12 +98,12 @@ class TractPatchSearch(AbstractSearch):
         # Pass the vertices to the filter_by_polygon method.
         return hc_structure.filter_by_polygon(ra_dec_vertices)
 
-    def search_points(self, frame: npd.NestedFrame, metadata: TableProperties) -> npd.NestedFrame:
+    def search_points(self, frame: npd.NestedFrame, metadata) -> npd.NestedFrame:
         """Determine the search results within a data frame.
 
         Args:
             frame (npd.NestedFrame): The data frame to search.
-            metadata (TableProperties): Metadata for the data frame.
+            metadata (hats.catalog.TableProperties): Metadata for the data frame.
 
         Returns:
             npd.NestedFrame: The filtered data frame.
