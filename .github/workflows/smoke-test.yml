@@ -34,6 +34,9 @@ jobs:
         python -m pip install --upgrade pip
         pip install -e .[dev]
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+    - name: Install LSST skymap package
+        git clone https://github.com/lsst/skymap.git skymap
+        pip install -e skymap
     - name: List dependencies
       run: |
         pip list

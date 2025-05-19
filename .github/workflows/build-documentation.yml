@@ -31,6 +31,9 @@ jobs:
         python -m pip install --upgrade pip
         if [ -f docs/requirements.txt ]; then pip install -r docs/requirements.txt; fi
         pip install .
+    - name: Install LSST skymap package
+        git clone https://github.com/lsst/skymap.git skymap
+        pip install -e skymap
     - name: Build docs
       run: |
         sphinx-build -T -E -b html -d docs/build/doctrees ./docs docs/build/html
