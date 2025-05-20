@@ -30,10 +30,6 @@ jobs:
         python -m pip install --upgrade pip
         pip install -e .[dev]
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-    - name: Clone skymap
-      run: git clone https://github.com/lsst/skymap.git skymap
-    - name: Add skymap to PYTHONPATH
-      run: echo "PYTHONPATH=$(pwd)/skymap:$PYTHONPATH" >> $GITHUB_ENV
     - name: Run unit tests with pytest
       run: |
         python -m pytest --cov=lsdb_rubin --cov-report=xml

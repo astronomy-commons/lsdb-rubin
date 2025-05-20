@@ -12,12 +12,8 @@
 
 Suite of utilities for interacting with Rubin LSST data within LSDB.
 
-Note that this package depends on [LSST skymap](https://github.com/lsst/skymap), which is not pip installable, but may be installed via:
-```
->> git clone https://github.com/lsst/skymap.git
->> cd skymap
->> pip install -e .
-```
+Note that this package depends on [LSST skymap](https://github.com/lsst/skymap), which is a part of the LSST stack.
+
 
 ## Dev Guide - Getting Started
 
