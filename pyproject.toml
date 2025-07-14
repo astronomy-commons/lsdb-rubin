@@ -17,7 +17,7 @@ dynamic = ["version"]
 requires-python = ">=3.10"
 dependencies = [
     "lsdb", # For catalog operations
-    #"skymap-convert", # For skymap-based methods, such as tract_patch_search
+    "skymap-convert", # For skymap-based methods, such as tract_patch_search
 ]
 
 [project.urls]
