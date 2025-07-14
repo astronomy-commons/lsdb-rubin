@@ -4,6 +4,8 @@ from pathlib import Path
 import lsdb
 import pytest
 
+from skymap_convert import ConvertedSkymapReader
+
 DATA_DIR_NAME = "data"
 TEST_DIR = Path(__file__).parent.parent
 SKYMAP_DIR_NAME = "skymaps"
@@ -17,12 +19,14 @@ def test_data_dir():
 
 
 @pytest.fixture
-def lsst_skymap(test_data_dir):
-    """Fixture to load the LSST skymap from local file."""
-    skymap_path = test_data_dir / SKYMAP_DIR_NAME / "skyMap_lsst_cells_v1_skymaps.pickle"
-    with open(skymap_path, "rb") as f:
-        lsst_skymap = pickle.load(f)
-    return lsst_skymap
+def lsst_skymap_reader(test_data_dir):
+    """Fixture to load the LSST skymap reader from local file."""
+    # skymap_path = test_data_dir / SKYMAP_DIR_NAME / "skyMap_lsst_cells_v1_skymaps.pickle"
+    # with open(skymap_path, "rb") as f:
+    #     lsst_skymap = pickle.load(f)
+    # return lsst_skymap
+    skymap_reader = ConvertedSkymapReader(preset="lsst_skymap")
+    return skymap_reader
 
 
 @pytest.fixture
