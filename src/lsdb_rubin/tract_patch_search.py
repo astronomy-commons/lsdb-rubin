@@ -1,9 +1,12 @@
 import math
+from typing import TYPE_CHECKING
 
-import nested_pandas as npd
 from lsdb.core.search.abstract_search import AbstractSearch
 from lsdb.core.search.box_search import box_filter
 from lsdb.types import HCCatalogTypeVar
+
+if TYPE_CHECKING:
+    import nested_pandas as npd
 
 
 def tract_patch_search(
@@ -85,7 +88,7 @@ class TractPatchSearch(AbstractSearch):
         # Pass the vertices to the filter_by_box method.
         return hc_structure.filter_by_box(ra_range, dec_range)
 
-    def search_points(self, frame: npd.NestedFrame, metadata) -> npd.NestedFrame:
+    def search_points(self, frame: "npd.NestedFrame", metadata) -> "npd.NestedFrame":
         """Determine the search results within a data frame.
 
         Args:
