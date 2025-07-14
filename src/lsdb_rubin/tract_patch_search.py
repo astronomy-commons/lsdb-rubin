@@ -1,4 +1,3 @@
-import math
 from typing import TYPE_CHECKING
 
 from lsdb.core.search.abstract_search import AbstractSearch

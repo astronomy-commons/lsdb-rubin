@@ -1,12 +1,9 @@
-import pickle
 from pathlib import Path
 
 import lsdb
 import pytest
-
 from skymap_convert import ConvertedSkymapReader
 
-DATA_DIR_NAME = "data"
 TEST_DIR = Path(__file__).parent.parent
 SKYMAP_DIR_NAME = "skymaps"
 SMALL_SKY_DIR_NAME = "small_sky"
@@ -15,7 +12,7 @@ SMALL_SKY_DIR_NAME = "small_sky"
 @pytest.fixture
 def test_data_dir():
     """Fixture to provide the path to the test data directory."""
-    return Path(TEST_DIR) / DATA_DIR_NAME
+    return Path(TEST_DIR) / "data"
 
 
 @pytest.fixture
