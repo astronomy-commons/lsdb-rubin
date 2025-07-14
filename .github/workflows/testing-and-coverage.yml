@@ -30,9 +30,6 @@ jobs:
         python -m pip install --upgrade pip
         pip install -e .[dev]
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-    - name: Install skymap-convert from source
-      run: |
-        pip install git+https://github.com/lincc-frameworks/skymap-convert.git
     - name: Run unit tests with pytest
       run: |
         python -m pytest --cov=lsdb_rubin --cov-report=xml
