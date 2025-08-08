@@ -2,6 +2,7 @@ from pathlib import Path
 
 import lsdb
 import pytest
+from hats.io.file_io import read_parquet_file_to_pandas
 from skymap_convert import ConvertedSkymapReader
 
 TEST_DIR = Path(__file__).parent.parent
@@ -31,3 +32,10 @@ def small_sky_catalog(test_data_dir):
     """Fixture to load the small_sky catalog."""
     catalog_path = test_data_dir / SMALL_SKY_DIR_NAME
     return lsdb.read_hats(catalog_path)
+
+
+@pytest.fixture
+def mock_dp1_frame(test_data_dir):
+    """Fixture to load the small_sky catalog."""
+    parquet_path = test_data_dir / "mock_dp1_1000" / "dataset" / "Norder=0" / "Dir=0" / "Npix=0.parquet"
+    return read_parquet_file_to_pandas(parquet_path)
