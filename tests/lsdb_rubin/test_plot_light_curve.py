@@ -50,6 +50,18 @@ def test_plot_y_axis_flux(mock_dp1_frame):
     assert not ax.yaxis_inverted()
 
 
+def test_plot_5band(mock_dp1_frame):
+    """This light curve only has data in 5 bands."""
+    plt.figure()
+    plot_light_curve(mock_dp1_frame.query("diaObjectId == 4629141259356225276").iloc[0]["diaSource"])
+    fig = plt.gcf()
+    ax = fig.gca()
+    legend_els = ax.get_legend_handles_labels()
+    assert legend_els[-1] == ["u", "g", "i", "z", "y"]
+    assert ax.xaxis.get_label_text() == "MJD"
+    assert ax.yaxis.get_label_text() == "psfMag"
+
+
 def test_plot_x_axis_period(mock_dp1_frame):
     """Set a period for phase-folded light curve. The x-axis will just be [0, 1]"""
     plt.figure()
@@ -63,6 +75,24 @@ def test_plot_x_axis_period(mock_dp1_frame):
     right_tick = ax.xaxis.get_majorticklabels()[-1]._x
     assert left_tick == 0
     assert right_tick == 1
+
+    assert ax.yaxis.get_label_text() == "psfMag"
+    assert ax.yaxis_inverted()
+
+
+def test_plot_x_axis_period_doubled(mock_dp1_frame):
+    """Set a period for phase-folded light curve, but show two periods. The x-axis will just be [0, 2]"""
+    plt.figure()
+    plot_light_curve(mock_dp1_frame.iloc[0]["diaSource"], period=3.5, num_periods=2)
+    fig = plt.gcf()
+    ax = fig.gca()
+    legend_els = ax.get_legend_handles_labels()
+    assert legend_els[-1] == ["u", "g", "r", "i", "z", "y"]
+    assert ax.xaxis.get_label_text() == "phase"
+    left_tick = ax.xaxis.get_majorticklabels()[0]._x
+    right_tick = ax.xaxis.get_majorticklabels()[-1]._x
+    assert left_tick == 0
+    assert right_tick == 2
 
     assert ax.yaxis.get_label_text() == "psfMag"
     assert ax.yaxis_inverted()

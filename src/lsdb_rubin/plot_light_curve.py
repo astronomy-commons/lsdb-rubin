@@ -38,6 +38,14 @@ plot_filter_symbols = {
 }
 
 plot_symbols = {"u": "o", "g": "^", "r": "v", "i": "s", "z": "*", "y": "p"}
+plot_linestyles_none = {
+    "u": None,
+    "g": None,
+    "r": None,
+    "i": None,
+    "z": None,
+    "y": None,
+}
 
 plot_linestyles = {
     "u": "--",
@@ -64,6 +72,8 @@ def plot_light_curve(
     filter_symbols=None,
     filter_linestyles=None,
     period=None,
+    num_periods=1,
+    period_mjd0=None,
 ):
     """Convenience method to plot a single light curve's magnitude. The y-axis is
     upside-down since magnitude is bananas.
@@ -87,9 +97,12 @@ def plot_light_curve(
         filter_symbols (dict, optional): Mapping of band names to marker symbols.
             Defaults to plot_symbols.
         filter_linestyles (dict, optional): Mapping of band names to line styles.
-            Defaults to plot_linestyles.
+            Defaults to plot_linestyles_none.
         period (float, optional): If provided, folds the time axis by this period (in days).
             Defaults to None.
+        num_periods (int): Used to plot multiple full periods. Defaults to 1 (single period).
+        period_mjd0 (float, optional): The time of the start of the phase-folded light curve.
+            If not provided, we use the earliest ``midpointMjdTai`` value.
 
     Returns:
         None
@@ -102,7 +115,7 @@ def plot_light_curve(
     if filter_symbols is None:
         filter_symbols = plot_symbols
     if filter_linestyles is None:
-        filter_linestyles = plot_linestyles
+        filter_linestyles = plot_linestyles_none
 
     if legend_kwargs is None:
         legend_kwargs = {}
@@ -112,7 +125,8 @@ def plot_light_curve(
     is_mag = flux_field is None
     brightness_field = flux_field or mag_field
     brightness_err_field = f"{brightness_field}Err"
-    minimum_time = lc["midpointMjdTai"].min()
+    if period_mjd0 is None:
+        period_mjd0 = lc["midpointMjdTai"].min()
 
     # Actually do the plot
     for band in band_names:
@@ -121,13 +135,13 @@ def plot_light_curve(
             continue
         x_axis = data["midpointMjdTai"]
         if period is not None:
-            x_axis = (x_axis - minimum_time) % period / period
+            x_axis = (x_axis - period_mjd0) / period % num_periods
         plt.errorbar(
             x_axis,
             data[brightness_field],
             yerr=data[brightness_err_field],
             label=band,
-            linestyle=filter_linestyles[band] if period is None else None,
+            linestyle=filter_linestyles[band],
             fmt=filter_symbols[band],
             color=filter_colors[band],
             **plot_kwargs,
@@ -140,7 +154,7 @@ def plot_light_curve(
         plt.xlabel("MJD")
     else:
         plt.xlabel("phase")
-        plt.xlim([0, 1])
+        plt.xlim([0, num_periods])
         title = title + f" (period = {period} d)"
 
     plt.ylabel(brightness_field)
