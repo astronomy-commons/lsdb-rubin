@@ -24,12 +24,15 @@ pip install .
 Use LSDB to search catalogs by LSST tract and/or patch.
 ```python
 import lsdb
+import skymap_convert
 from lsdb_rubin import tract_patch_search
 
-lsdb.catalog.Catalog.tract_patch_search = tract_patch_search
 gaia = lsdb.read_hats("https://data.lsdb.io/hats/gaia_dr3/gaia")
+lsst_skymap = skymap_convert.ConvertedSkymapReader(preset="lsst_skymap")
 
-gaia.tract_patch_search(skymap=lsst_skymap, tract=tract_index)
+tract_index = 10_000
+lsdb.catalog.Catalog.tract_patch_search = tract_patch_search
+gaia.tract_patch_search(skymap_reader=lsst_skymap, tract=tract_index)
 ```
 See the [demo notebook](https://github.com/astronomy-commons/lsdb-rubin/blob/main/docs/notebooks/tract_patch_search.ipynb) for more.
 
@@ -40,7 +43,7 @@ LSST light curves can be tricky to plot, so we've provided an easy method for a 
 import lsdb
 from lsdb_rubin.plot_light_curve import plot_light_curve
 
-dia_object = lsdb.open_catalog("../../tests/data/mock_dp1_1000")
+dia_object = lsdb.open_catalog("<your-path-to>/lsdb-rubin/tests/data/mock_dp1_1000")
 dia_object = dia_object.compute()
 
 plot_light_curve(dia_object.iloc[0]["diaObjectForcedSource"])
