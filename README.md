@@ -12,17 +12,37 @@
 
 Suite of utilities for interacting with Rubin LSST data within LSDB.
 
-## LSST tract/patch search
+## Quickstart
+To install, clone the repository (ideally, within a virtual environment): 
+```python
+git clone https://github.com/astronomy-commons/lsdb-rubin.git
+cd lsdb-rubin
+pip install .
+```
+
+### LSST tract/patch search
 Use LSDB to search catalogs by LSST tract and/or patch.
 ```python
+import lsdb
+from lsdb_rubin import tract_patch_search
+
+lsdb.catalog.Catalog.tract_patch_search = tract_patch_search
+gaia = lsdb.read_hats("https://data.lsdb.io/hats/gaia_dr3/gaia")
+
 gaia.tract_patch_search(skymap=lsst_skymap, tract=tract_index)
 ```
-See the [demo notebook](https://github.com/astronomy-commons/lsdb-rubin/blob/main/docs/notebooks/tract_patch_search.ipynb).
+See the [demo notebook](https://github.com/astronomy-commons/lsdb-rubin/blob/main/docs/notebooks/tract_patch_search.ipynb) for more.
 
-## Plot a LSST light curve
+### Plot a LSST light curve
 LSST light curves can be tricky to plot, so we've provided an easy method for a single light curve.
 
 ```python
+import lsdb
+from lsdb_rubin.plot_light_curve import plot_light_curve
+
+dia_object = lsdb.open_catalog("../../tests/data/mock_dp1_1000")
+dia_object = dia_object.compute()
+
 plot_light_curve(dia_object.iloc[0]["diaObjectForcedSource"])
 ```
-See the [demo notebook](https://github.com/astronomy-commons/lsdb-rubin/blob/main/docs/notebooks/plot_light_curves.ipynb).
+See the [demo notebook](https://github.com/astronomy-commons/lsdb-rubin/blob/main/docs/notebooks/plot_light_curves.ipynb) for more.
