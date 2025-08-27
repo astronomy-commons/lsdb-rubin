@@ -1,0 +1,38 @@
+name: Create Rubin environment from conda
+
+on:
+
+  ## REMOVE - just for testing
+  pull_request:
+    branches: [ main ]
+
+  # Runs this workflow automatically
+  schedule:
+    - cron: 55 6 * * *
+    
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+
+jobs:
+  make-cache:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: conda-incubator/setup-miniconda@v3
+        with:
+          auto-update-conda: true
+          python-version: "3.12"
+          miniforge-version: latest
+          channels: conda-forge,defaults
+          show-channel-urls: true
+
+      - name: Configure conda and install minimal requirements
+        shell: bash -l {0}
+        run: |
+          conda install --yes rubin-env-rsp
+
+      - name: Get dependency changes from installing LSDB
+        shell: bash -l {0}
+        run: |
+          conda install --dry-run lsdb
