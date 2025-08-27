@@ -1,0 +1,33 @@
+{
+    "benchmarks.time_critical_functions": {
+        "code": "def time_critical_functions():\n    \"\"\"Run the contents of the `Test of LSDB Critical functions` notebook,\n    reporting the total runtime. Any deviation from expected values will\n    cause the benchmark test to fail.\n\n    See https://github.com/lsst-sitcom/linccf/blob/main/RSP/critical_fs.ipynb\"\"\"\n    critical_functions()",
+        "min_run_count": 2,
+        "name": "benchmarks.time_critical_functions",
+        "number": 0,
+        "param_names": [],
+        "params": [],
+        "repeat": 0,
+        "rounds": 2,
+        "sample_time": 0.01,
+        "type": "time",
+        "unit": "seconds",
+        "version": "a43cadde585bf8169597bea89820635dd499d46a54dc2240e914b844f0f27682",
+        "warmup_time": -1
+    },
+    "benchmarks.time_random_access": {
+        "code": "def time_random_access():\n    \"\"\"Run the contents of the `HATS Data Preview 1 on RSP` notebook,\n    reporting the total runtime. Any deviation from expected values will\n    cause the benchmark test to fail.\n\n    See https://github.com/lsst-sitcom/linccf/blob/main/RSP/random_access.ipynb\"\"\"\n\n    random_access(Path(__file__).parent.parent / \"tests\" / \"data\" / \"mock_dp1_1000\")",
+        "min_run_count": 2,
+        "name": "benchmarks.time_random_access",
+        "number": 0,
+        "param_names": [],
+        "params": [],
+        "repeat": 0,
+        "rounds": 2,
+        "sample_time": 0.01,
+        "type": "time",
+        "unit": "seconds",
+        "version": "9170d639ce4a4ff0638f08a2cabd0519dc194321e4bdbd03abd66394b3310205",
+        "warmup_time": -1
+    },
+    "version": 2
+}
