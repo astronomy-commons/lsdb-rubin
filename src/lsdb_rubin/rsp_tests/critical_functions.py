@@ -1,6 +1,7 @@
-import lsdb
 import tempfile
 from pathlib import Path
+
+import lsdb
 
 
 def critical_functions():

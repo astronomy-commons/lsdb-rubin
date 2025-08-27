@@ -1,9 +1,9 @@
-import lsdb
+import sys
 from pathlib import Path
+
 import lsdb
 import numpy as np
 import pandas as pd
-import sys
 
 
 def random_access(catalog_path, verbose=False):

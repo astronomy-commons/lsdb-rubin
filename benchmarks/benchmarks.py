@@ -1,6 +1,7 @@
+from pathlib import Path
+
 from lsdb_rubin.rsp_tests.critical_functions import critical_functions
 from lsdb_rubin.rsp_tests.random_access import random_access
-from pathlib import Path
 
 
 def time_critical_functions():
