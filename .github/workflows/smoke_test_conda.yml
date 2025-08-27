@@ -15,7 +15,7 @@ on:
 
 
 jobs:
-  make-cache:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -27,7 +27,7 @@ jobs:
           channels: conda-forge,defaults
           show-channel-urls: true
 
-      - name: Configure conda and install minimal requirements
+      - name: Install rubin-env
         shell: bash -l {0}
         run: |
           conda install --yes rubin-env-rsp
@@ -36,3 +36,14 @@ jobs:
         shell: bash -l {0}
         run: |
           conda install --dry-run lsdb
+
+      - name: Install LSDB
+        shell: bash -l {0}
+        run: |
+          conda install --dry-run lsdb
+
+      - name: Run test modules
+        shell: bash -l {0}
+        run: |
+          python src/lsdb_rubin/rsp_tests/critical_functions.py
+          python src/lsdb_rubin/rsp_tests/random_access.py
