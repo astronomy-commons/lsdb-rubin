@@ -1,5 +1,6 @@
 from lsdb_rubin.rsp_tests.critical_functions import critical_functions
 from lsdb_rubin.rsp_tests.random_access import random_access
+from pathlib import Path
 
 
 def time_critical_functions():
@@ -17,4 +18,5 @@ def time_random_access():
     cause the benchmark test to fail.
 
     See https://github.com/lsst-sitcom/linccf/blob/main/RSP/random_access.ipynb"""
-    random_access(None)
+
+    random_access(Path(__file__).parent.parent / "tests" / "data" / "mock_dp1_1000")

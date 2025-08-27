@@ -6,7 +6,7 @@ import pandas as pd
 import sys
 
 
-def random_access(catalog_path):
+def random_access(catalog_path, verbose=False):
     """Run the contents of the `HATS Data Preview 1 on RSP` notebook.
     Any deviation from expected values will result in assertion failures.
 
@@ -26,15 +26,18 @@ def random_access(catalog_path):
     partition_indices = []
     for percentile in [10, 50, 90]:
         q = np.percentile(pixel_counts, percentile)
-        print(f"Percentile: {percentile}, Quartile: {q}")
+        if verbose:
+            print(f"Percentile: {percentile}, Quartile: {q}")
         index = int(np.argmin(np.abs(pixel_counts - q)))
         closest_value = pixel_counts.iloc[index]
-        print(f"Closest value: {closest_value}, partition index: {index}")
+        if verbose:
+            print(f"Closest value: {closest_value}, partition index: {index}")
         partition_indices.append(index)
 
     ### Cell 4
     for index in partition_indices:
-        print(f"Sampling partition {index} of size {pixel_counts.iloc[index]}")
+        if verbose:
+            print(f"Sampling partition {index} of size {pixel_counts.iloc[index]}")
         object_collection.sample(index, n=100, seed=10)
 
 

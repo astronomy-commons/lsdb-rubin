@@ -47,5 +47,6 @@ def critical_functions():
     ### Cell 6
     tmp_path.cleanup()
 
+
 if __name__ == "__main__":
     critical_functions()
