@@ -2,10 +2,6 @@ name: Create Rubin environment from conda
 
 on:
 
-  ## REMOVE - just for testing
-  pull_request:
-    branches: [ main ]
-
   # Runs this workflow automatically
   schedule:
     - cron: 55 6 * * *
