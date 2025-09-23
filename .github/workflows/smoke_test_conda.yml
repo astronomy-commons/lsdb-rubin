@@ -43,6 +43,7 @@ jobs:
           conda install lsdb
 
       - name: Run test modules
+        shell: bash -l {0}
         run: |
           python src/lsdb_rubin/rsp_tests/critical_functions.py
           python src/lsdb_rubin/rsp_tests/random_access.py
