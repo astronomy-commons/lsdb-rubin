@@ -1,7 +1,7 @@
 from typing import TYPE_CHECKING
 
 from lsdb.core.search.abstract_search import AbstractSearch
-from lsdb.core.search.box_search import box_filter
+from lsdb.core.search.region_search import box_filter
 from lsdb.types import HCCatalogTypeVar
 
 if TYPE_CHECKING:
