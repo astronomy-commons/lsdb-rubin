@@ -16,7 +16,7 @@ classifiers = [
 dynamic = ["version"]
 requires-python = ">=3.10"
 dependencies = [
-    "lsdb>=0.6.5", # For catalog operations
+    "lsdb>=0.6.6", # For catalog operations
     "skymap-convert>=0.1.1", # For skymap-based methods, such as tract_patch_search
 ]
 
