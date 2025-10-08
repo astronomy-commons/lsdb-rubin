@@ -1,5 +1,4 @@
 import matplotlib.pyplot as plt
-
 from lsdb_rubin.plot_light_curve import plot_light_curve
 
 

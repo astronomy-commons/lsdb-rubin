@@ -1,5 +1,4 @@
 from lsdb.catalog import Catalog
-
 from lsdb_rubin.tract_patch_search import tract_patch_search
 
 Catalog.tract_patch_search = tract_patch_search
