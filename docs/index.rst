@@ -20,5 +20,5 @@ as a dependency of ``lsdb-rubin``.
    :hidden:
 
    Home page <self>
-   API Reference <autoapi/index>
+   API Reference <reference/index>
    Notebooks <notebooks>
