@@ -9,6 +9,7 @@ plot_filter_colors_rainbow = {
     "z": "#f341a2",  # Pink/Magenta
     "y": "#990099",  # Purple
 }
+"""Bright color palatte."""
 
 ## https://rtn-045.lsst.io/#colorblind-friendly-plots
 plot_filter_colors_white_background = {
@@ -19,6 +20,13 @@ plot_filter_colors_white_background = {
     "z": "#ba52ff",
     "y": "#61a2b3",
 }
+"""Rubin color palatte for use on a white background.
+
+This is the default, when you have no specified a per-band color palatte
+via the ``filter_colors`` argument.
+
+See https://rtn-045.lsst.io/#colorblind-friendly-plots"""
+
 plot_filter_colors_black_background = {
     "u": "#3eb7ff",
     "g": "#30c39f",
@@ -27,6 +35,9 @@ plot_filter_colors_black_background = {
     "z": "#a7f9c1",
     "y": "#fdc900",
 }
+"""Rubin color palatte for use on a black background.
+
+See https://rtn-045.lsst.io/#colorblind-friendly-plots"""
 
 plot_filter_symbols = {
     "u": "o",  # Circle
@@ -36,8 +47,18 @@ plot_filter_symbols = {
     "z": "v",  # Triangle down
     "y": "X",  # X
 }
+"""Alternative symbols to use for indivudual data points, varying by filter.
+
+See https://rtn-045.lsst.io/#colorblind-friendly-plots"""
 
 plot_symbols = {"u": "o", "g": "^", "r": "v", "i": "s", "z": "*", "y": "p"}
+"""Symbols to use for indivudual data points, varying by filter.
+
+See https://rtn-045.lsst.io/#colorblind-friendly-plots
+
+This is the default, when you have no specified a per-band color palatte
+via the ``filter_symbols`` argument."""
+
 plot_linestyles_none = {
     "u": None,
     "g": None,
@@ -46,6 +67,10 @@ plot_linestyles_none = {
     "z": None,
     "y": None,
 }
+"""Do not use filter-varying line styles. All lines are solid.
+
+This is the default, when you have no specified a per-band color palatte
+via the ``filter_linestyles`` argument."""
 
 plot_linestyles = {
     "u": "--",
@@ -55,9 +80,19 @@ plot_linestyles = {
     "z": (0, (3, 1, 1, 1, 1, 1)),
     "y": ":",
 }
+"""Alternative filter-varying line styles.
+
+These can be useful to show different line styles for each filter in a plot."""
 
 band_names_ugrizy = ["u", "g", "r", "i", "z", "y"]
+"""Names of passbands that will appear in the ``band`` nested column.
+
+This is the default, when you have no specified a per-band color palatte
+via the ``band_names`` argument.
+"""
+
 band_names_lsst_ugrizy = ["LSST_u", "LSST_g", "LSST_r", "LSST_i", "LSST_z", "LSST_y"]
+"""Alternative names of passbands that could appear in the ``band`` nested column."""
 
 
 def plot_light_curve(
@@ -75,8 +110,9 @@ def plot_light_curve(
     num_periods=1,
     period_mjd0=None,
 ):
-    """Convenience method to plot a single light curve's magnitude. The y-axis is
-    upside-down since magnitude is bananas.
+    """Convenience method to plot a single light curve's magnitude.
+
+    Note: The y-axis is upside-down since magnitude is bananas.
 
     If you want additional configuration, you may be better served creating your own plotting
     function, as this is intended for quick inspection of individual lightcurves in HATS-formatted
