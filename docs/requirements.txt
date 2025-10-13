@@ -5,6 +5,5 @@ jupytext
 nbconvert
 nbsphinx
 sphinx
-sphinx-autoapi
 sphinx-copybutton
 sphinx-rtd-theme
