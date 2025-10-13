@@ -9,7 +9,7 @@ plot_filter_colors_rainbow = {
     "z": "#f341a2",  # Pink/Magenta
     "y": "#990099",  # Purple
 }
-"""Bright color palatte."""
+"""Bright color palette."""
 
 ## https://rtn-045.lsst.io/#colorblind-friendly-plots
 plot_filter_colors_white_background = {
@@ -20,9 +20,9 @@ plot_filter_colors_white_background = {
     "z": "#ba52ff",
     "y": "#61a2b3",
 }
-"""Rubin color palatte for use on a white background.
+"""Rubin color palette for use on a white background.
 
-This is the default, when you have no specified a per-band color palatte
+This is the default, when you have no specified a per-band color palette
 via the ``filter_colors`` argument.
 
 See https://rtn-045.lsst.io/#colorblind-friendly-plots"""
@@ -35,7 +35,7 @@ plot_filter_colors_black_background = {
     "z": "#a7f9c1",
     "y": "#fdc900",
 }
-"""Rubin color palatte for use on a black background.
+"""Rubin color palette for use on a black background.
 
 See https://rtn-045.lsst.io/#colorblind-friendly-plots"""
 
@@ -56,7 +56,7 @@ plot_symbols = {"u": "o", "g": "^", "r": "v", "i": "s", "z": "*", "y": "p"}
 
 See https://rtn-045.lsst.io/#colorblind-friendly-plots
 
-This is the default, when you have no specified a per-band color palatte
+This is the default, when you have not specified a per-band color palette
 via the ``filter_symbols`` argument."""
 
 plot_linestyles_none = {
@@ -69,7 +69,7 @@ plot_linestyles_none = {
 }
 """Do not use filter-varying line styles. All lines are solid.
 
-This is the default, when you have no specified a per-band color palatte
+This is the default, when you have no specified a per-band color palette
 via the ``filter_linestyles`` argument."""
 
 plot_linestyles = {
@@ -87,7 +87,7 @@ These can be useful to show different line styles for each filter in a plot."""
 band_names_ugrizy = ["u", "g", "r", "i", "z", "y"]
 """Names of passbands that will appear in the ``band`` nested column.
 
-This is the default, when you have no specified a per-band color palatte
+This is the default, when you have no specified a per-band color palette
 via the ``band_names`` argument.
 """
 

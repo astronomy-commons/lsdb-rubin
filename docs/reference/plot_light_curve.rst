@@ -12,10 +12,10 @@ To see the method and configuration in action, check out the
 
 .. autofunction:: lsdb_rubin.plot_light_curve.plot_light_curve
 
-Color palattes (``filter_colors``)
+Color palettes (``filter_colors``)
 -----------------------------------------
 
-A color palatte will be used to distinguish multi-band data, and is expected
+A color palette will be used to distinguish multi-band data, and is expected
 to be a dictionary, where keys are band names, and values are the color, as 
 accepted by matplotlib.
 
