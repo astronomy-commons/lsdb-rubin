@@ -31,12 +31,12 @@ jobs:
       - name: Get dependency changes from installing LSDB
         shell: bash -l {0}
         run: |
-          conda install --dry-run lsdb
+          conda update --dry-run lsdb
 
       - name: Install LSDB
         shell: bash -l {0}
         run: |
-          conda install lsdb
+          conda update lsdb
 
       - name: Run test modules
         shell: bash -l {0}
