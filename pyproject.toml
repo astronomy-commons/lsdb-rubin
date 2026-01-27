@@ -6,6 +6,7 @@ readme = "README.md"
 authors = [
     { name = "LINCC Frameworks", email = "lincc-frameworks-team@lists.lsst.org" }
 ]
+description = "Suite of utilities for interacting with Rubin LSST data within LSDB."
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
@@ -16,7 +17,7 @@ classifiers = [
 dynamic = ["version"]
 requires-python = ">=3.11"
 dependencies = [
-    "lsdb>=0.6.6", # For catalog operations
+    "lsdb>=0.8.1", # For catalog operations
     "skymap-convert>=0.1.1", # For skymap-based methods, such as tract_patch_search
 ]
 
@@ -54,7 +55,6 @@ addopts = "--doctest-modules --doctest-glob=*.rst"
 
 [tool.ruff]
 line-length = 110
-target-version = "py311"
 [tool.ruff.lint]
 select = [
     # pycodestyle
