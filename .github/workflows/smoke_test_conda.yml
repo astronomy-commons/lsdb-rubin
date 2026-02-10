@@ -25,6 +25,9 @@ jobs:
 
       - name: Install rubin-env
         shell: bash -l {0}
+        env:
+          CONDA_ALWAYS_YES: "true"
+          CONDA_ALLOW_SOFTLINKS: "true"
         run: |
           conda install --yes rubin-env-rsp
 
