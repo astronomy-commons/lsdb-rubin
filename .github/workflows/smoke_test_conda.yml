@@ -29,7 +29,7 @@ jobs:
           CONDA_ALWAYS_YES: "true"
           CONDA_ALLOW_SOFTLINKS: "true"
         run: |
-          conda install --yes rubin-env-rsp gdk-pixbuf=2.44.5
+          conda install --yes rubin-env-rsp gdk-pixbuf=2.42.10
 
       - name: Get dependency changes from installing LSDB
         shell: bash -l {0}
