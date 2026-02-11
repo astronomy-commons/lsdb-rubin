@@ -34,7 +34,7 @@ tract_index = 10_000
 lsdb.catalog.Catalog.tract_patch_search = tract_patch_search
 gaia.tract_patch_search(skymap_reader=lsst_skymap, tract=tract_index)
 ```
-See the [demo notebook](https://github.com/astronomy-commons/lsdb-rubin/blob/main/docs/notebooks/tract_patch_search.ipynb) for more.
+See the [demo notebook](https://github.com/astronomy-commons/lsdb-rubin/tree/main/docs/pre_executed/tract_patch_search.ipynb) for more.
 
 ### Plot a LSST light curve
 LSST light curves can be tricky to plot, so we've provided an easy method for a single light curve.
