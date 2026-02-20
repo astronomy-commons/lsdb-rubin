@@ -26,17 +26,18 @@ jobs:
       - name: Install rubin-env
         shell: bash -l {0}
         run: |
-          conda install --yes rubin-env-rsp
+          conda install --yes -c conda-forge gdk-pixbuf<2.42.12
+          conda install --yes -c conda-forge rubin-env-rsp
 
       - name: Get dependency changes from installing LSDB
         shell: bash -l {0}
         run: |
-          conda update --dry-run lsdb
+          conda update --dry-run -c conda-forge lsdb
 
       - name: Install LSDB
         shell: bash -l {0}
         run: |
-          conda update lsdb
+          conda update -c conda-forge lsdb
 
       - name: Run test modules
         shell: bash -l {0}
