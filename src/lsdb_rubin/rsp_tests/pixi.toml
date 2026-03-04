@@ -9,4 +9,4 @@ test = "python -c 'print(\"Hello world!\")'"
 
 [dependencies]
 python = "3.12.*"
-rubin-env-rsp
+rubin-env-rsp = "*"
