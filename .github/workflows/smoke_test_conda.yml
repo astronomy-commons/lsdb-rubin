@@ -15,29 +15,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
-      - uses: conda-incubator/setup-miniconda@v3
+      - uses: prefix-dev/setup-pixi@v0.9.4
         with:
-          auto-update-conda: true
-          python-version: "3.12"
-          miniforge-version: latest
-          channels: conda-forge,defaults
-          show-channel-urls: true
-
-      - name: Install rubin-env
-        shell: bash -l {0}
-        run: |
-          conda install --yes -c conda-forge gdk-pixbuf=2.42.10
-          conda install --yes -c conda-forge rubin-env-rsp
-
-      - name: Get dependency changes from installing LSDB
-        shell: bash -l {0}
-        run: |
-          conda update --dry-run -c conda-forge lsdb
+          activate-environment: true
+          manifest-path: pixi.toml
 
       - name: Install LSDB
-        shell: bash -l {0}
+        # shell: bash -l {0}
         run: |
-          conda update -c conda-forge lsdb
+          pixi add lsdb
 
       - name: Run test modules
         shell: bash -l {0}

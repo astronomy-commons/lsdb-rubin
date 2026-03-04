@@ -1,0 +1,12 @@
+
+[workspace]
+name = "test-default"
+channels = ["conda-forge"]
+platforms = ["linux-64", "linux-aarch64", "osx-64", "osx-arm64", "win-64"]
+
+[tasks]
+test = "python -c 'print(\"Hello world!\")'"
+
+[dependencies]
+python = "3.12.*"
+rubin-env-rsp
