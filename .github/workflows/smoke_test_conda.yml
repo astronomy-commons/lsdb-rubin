@@ -23,7 +23,6 @@ jobs:
       - name: Install LSDB
         # shell: bash -l {0}
         run: |
-          source $(pixi env print-activation-script)
           pixi add lsdb
 
       - name: Run test modules
