@@ -23,10 +23,14 @@ jobs:
       - name: Install LSDB
         # shell: bash -l {0}
         run: |
+          cd src/lsdb_rubin/rsp_tests
+          pixi run test
           pixi add lsdb
 
       - name: Run test modules
         shell: bash -l {0}
         run: |
-          python src/lsdb_rubin/rsp_tests/critical_functions.py
-          python src/lsdb_rubin/rsp_tests/random_access.py
+          cd src/lsdb_rubin/rsp_tests
+          pixi run test
+          python critical_functions.py
+          python random_access.py
