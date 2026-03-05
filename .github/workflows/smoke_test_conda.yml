@@ -25,10 +25,10 @@ jobs:
         run: |
           cd src/lsdb_rubin/rsp_tests
           pixi run test
-          pixi add lsdb
+          pixi add -vv lsdb
 
       - name: Run test modules
-        shell: bash -l {0}
+        # shell: bash -l {0}
         run: |
           cd src/lsdb_rubin/rsp_tests
           pixi run test
