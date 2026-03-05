@@ -20,6 +20,13 @@ jobs:
           # activate-environment: true
           manifest-path: src/lsdb_rubin/rsp_tests/pixi.toml
 
+      - name: Install Rubin RSP Environment
+        # shell: bash -l {0}
+        run: |
+          cd src/lsdb_rubin/rsp_tests
+          pixi run test
+          pixi add rubin-env-rsp
+
       - name: Install LSDB
         # shell: bash -l {0}
         run: |
