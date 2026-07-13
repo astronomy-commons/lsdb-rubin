@@ -8,16 +8,23 @@
 [![Codecov](https://codecov.io/gh/astronomy-commons/lsdb_rubin/branch/main/graph/badge.svg)](https://codecov.io/gh/astronomy-commons/lsdb_rubin)
 [![benchmarks](https://img.shields.io/github/actions/workflow/status/astronomy-commons/lsdb-rubin/asv-main.yml?label=benchmarks)](https://astronomy-commons.github.io/lsdb-rubin/)
 [![Read The Docs](https://img.shields.io/readthedocs/lsdb-rubin)](https://lsdb-rubin.readthedocs.io/)
+
 [![PyPI](https://img.shields.io/pypi/v/lsdb_rubin?color=blue&logo=pypi&logoColor=white)](https://pypi.org/project/lsdb_rubin/)
+[![Conda](https://img.shields.io/conda/vn/conda-forge/lsdb-rubin.svg?color=blue&logo=condaforge&logoColor=white)](https://anaconda.org/conda-forge/lsdb-rubin)
 
 Suite of utilities for interacting with Rubin LSST data within LSDB.
 
 ## Quickstart
-To install, clone the repository (ideally, within a virtual environment): 
-```python
-git clone https://github.com/astronomy-commons/lsdb-rubin.git
-cd lsdb-rubin
-pip install .
+
+The `lsdb-rubin` package is available from both pypi and conda-forge.
+
+```bash
+pip install lsdb-rubin
+```
+or
+
+```bash
+conda install conda-forge::lsdb-rubin
 ```
 
 ### LSST tract/patch search

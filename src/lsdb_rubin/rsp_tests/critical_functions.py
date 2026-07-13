@@ -15,11 +15,11 @@ def critical_functions():
 
     ### Cell 2
     region = lsdb.ConeSearch(ra=53.13, dec=-28.10, radius_arcsec=20)
-    expected_pixels = [lsdb.HealpixPixel(7, 143742)]
+    expected_pixels = [lsdb.HealpixPixel(1, 35)]
 
     gen_catalog_1 = lsdb.generate_catalog(100, 5, seed=53, search_region=region)
     assert gen_catalog_1.get_healpix_pixels() == expected_pixels
-    gen_catalog_1.to_hats(tmp_dir / "catalog_1", catalog_name="catalog_1", overwrite=True)
+    gen_catalog_1.write_catalog(tmp_dir / "catalog_1", catalog_name="catalog_1", overwrite=True)
 
     gen_catalog_2 = lsdb.generate_catalog(100, 5, seed=28, search_region=region)
     assert gen_catalog_2.get_healpix_pixels() == expected_pixels
