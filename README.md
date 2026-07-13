@@ -24,7 +24,7 @@ pip install lsdb-rubin
 or
 
 ```bash
-conda install -c conda-forge lsdb-rubin
+conda install conda-forge::lsdb-rubin
 ```
 
 ### LSST tract/patch search

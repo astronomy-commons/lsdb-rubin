@@ -18,7 +18,7 @@ or
 
 .. code-block:: bash
 
-   conda install -c conda-forge lsdb-rubin
+   conda install conda-forge::lsdb-rubin
 
 If you don't already have ``lsdb`` installed in your environment, it will be installed
 as a dependency of ``lsdb-rubin``.
