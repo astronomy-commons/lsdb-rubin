@@ -18,7 +18,7 @@ def random_access(catalog_path, verbose=False):
     object_collection = lsdb.open_catalog(catalog_path)
 
     ### Cell 2
-    pixel_statistics = object_collection.per_pixel_statistics()
+    pixel_statistics = object_collection.per_partition_statistics()
     counts = pd.to_numeric(pixel_statistics["diaObjectId: row_count"], errors="coerce")
     pixel_counts = counts.groupby(level=0).sum()
 
