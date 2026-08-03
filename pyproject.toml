@@ -17,7 +17,7 @@ classifiers = [
 dynamic = ["version"]
 requires-python = ">=3.11"
 dependencies = [
-    "lsdb>=0.9.2", # For catalog operations
+    "lsdb>=0.10.4", # For catalog operations
     "skymap-convert>=0.1.1", # For skymap-based methods, such as tract_patch_search
 ]
 
@@ -37,7 +37,7 @@ dev = [
 
 [build-system]
 requires = [
-    "setuptools>=82.0.1", # Used to build and package the Python project
+    "setuptools>=83.0.0", # Used to build and package the Python project
     "setuptools_scm>=10.2.1", # Gets release version from git. Makes it available programmatically
 ]
 build-backend = "setuptools.build_meta"
