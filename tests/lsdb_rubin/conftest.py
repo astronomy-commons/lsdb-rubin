@@ -52,3 +52,18 @@ def mock_dp2_frame(test_data_dir):
     """
     parquet_path = test_data_dir / "mock_dp2_20" / "dataset" / "Norder=0" / "Dir=0" / "Npix=0.parquet"
     return read_parquet_file_to_pandas(parquet_path)
+
+
+@pytest.fixture
+def mock_dp2_object_frame(test_data_dir):
+    """Fixture to load the mock EDP2 object catalog.
+
+    Entirely generated data following the schema of the ``object_lc`` catalog of the DP2
+    release candidate - no real Rubin measurement is in here. Objects are positioned with
+    ``coord_ra``/``coord_dec`` rather than ``ra``/``dec``, and carry ``objectForcedSource``
+    light curves with corrected error subcolumns.
+    """
+    parquet_path = (
+        test_data_dir / "mock_dp2_object_20" / "dataset" / "Norder=0" / "Dir=0" / "Npix=0.parquet"
+    )
+    return read_parquet_file_to_pandas(parquet_path)
