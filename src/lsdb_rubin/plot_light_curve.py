@@ -97,9 +97,11 @@ band_names_lsst_ugrizy = ["LSST_u", "LSST_g", "LSST_r", "LSST_i", "LSST_z", "LSS
 
 def plot_light_curve(
     lc: npd.NestedFrame,
+    *,
     title="LSST light curve",
     mag_field="psfMag",
     flux_field=None,
+    corrected_err=False,
     legend_kwargs=None,
     band_names=None,
     plot_kwargs=None,
@@ -125,6 +127,13 @@ def plot_light_curve(
             If using magnitude, the y-axis will be inverted.
         flux_field (str, optional): Field name for flux values.
             If None, uses mag_field instead. Defaults to None.
+        corrected_err (bool, optional): Whether to use the corrected error field,
+            ``f"{brightness_field}Err_corrected"``, instead of the original
+            ``f"{brightness_field}Err"``. Corrected errors are added to the nested
+            forced-source columns of the Rubin EDP2 HATS catalogs (``psfFluxErr_corrected``,
+            ``psfDiffFluxErr_corrected`` and ``psfMagErr_corrected``) by a model that
+            rescales the errors of non-variable objects to a reduced chi-squared close to
+            unity.
         legend_kwargs (dict, optional): Keyword arguments for plt.legend(). Defaults to None.
         band_names (list, optional): List of band names to plot. Defaults to None (uses ugrizy).
         plot_kwargs (dict, optional): Additional keyword arguments for plt.errorbar(). Defaults to None.
@@ -142,6 +151,10 @@ def plot_light_curve(
 
     Returns:
         None
+
+    Raises:
+        ValueError: If ``corrected_err`` is True but ``lc`` has no corrected error column
+            for the requested brightness field.
     """
     # Let's first set values to defaults if they're not specified in kwargs.
     if plot_kwargs is None:
@@ -161,6 +174,16 @@ def plot_light_curve(
     is_mag = flux_field is None
     brightness_field = flux_field or mag_field
     brightness_err_field = f"{brightness_field}Err"
+    if corrected_err:
+        corrected_err_field = f"{brightness_err_field}_corrected"
+        if corrected_err_field not in lc.columns:
+            raise ValueError(
+                f"Light curve has no {corrected_err_field!r} column. Corrected errors are only "
+                f"available for some of the nested forced-source columns of the Rubin EDP2 catalogs. "
+                f"Pass corrected_err=False to plot {brightness_err_field!r} instead."
+            )
+        brightness_err_field = corrected_err_field
+
     if period_mjd0 is None:
         period_mjd0 = lc["midpointMjdTai"].min()
 
