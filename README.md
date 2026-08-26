@@ -21,6 +21,7 @@ The `lsdb-rubin` package is available from both pypi and conda-forge.
 ```bash
 pip install lsdb-rubin
 ```
+
 or
 
 ```bash
