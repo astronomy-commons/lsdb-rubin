@@ -1,98 +1,12 @@
 import matplotlib.pyplot as plt
 import nested_pandas as npd
 
-plot_filter_colors_rainbow = {
-    "u": "#0c71ff",  # Blue
-    "g": "#49be61",  # Green
-    "r": "#ff0000",  # Red
-    "i": "#ffc200",  # Orange/Yellow
-    "z": "#f341a2",  # Pink/Magenta
-    "y": "#990099",  # Purple
-}
-"""Bright color palette."""
-
-## https://rtn-045.lsst.io/#colorblind-friendly-plots
-plot_filter_colors_white_background = {
-    "u": "#1600ea",
-    "g": "#31de1f",
-    "r": "#b52626",
-    "i": "#370201",
-    "z": "#ba52ff",
-    "y": "#61a2b3",
-}
-"""Rubin color palette for use on a white background.
-
-This is the default, when you have no specified a per-band color palette
-via the ``filter_colors`` argument.
-
-See https://rtn-045.lsst.io/#colorblind-friendly-plots"""
-
-plot_filter_colors_black_background = {
-    "u": "#3eb7ff",
-    "g": "#30c39f",
-    "r": "#ff7e00",
-    "i": "#2af5ff",
-    "z": "#a7f9c1",
-    "y": "#fdc900",
-}
-"""Rubin color palette for use on a black background.
-
-See https://rtn-045.lsst.io/#colorblind-friendly-plots"""
-
-plot_filter_symbols = {
-    "u": "o",  # Circle
-    "g": "^",  # Triangle up
-    "r": "s",  # Square
-    "i": "D",  # Diamond
-    "z": "v",  # Triangle down
-    "y": "X",  # X
-}
-"""Alternative symbols to use for indivudual data points, varying by filter.
-
-See https://rtn-045.lsst.io/#colorblind-friendly-plots"""
-
-plot_symbols = {"u": "o", "g": "^", "r": "v", "i": "s", "z": "*", "y": "p"}
-"""Symbols to use for indivudual data points, varying by filter.
-
-See https://rtn-045.lsst.io/#colorblind-friendly-plots
-
-This is the default, when you have not specified a per-band color palette
-via the ``filter_symbols`` argument."""
-
-plot_linestyles_none = {
-    "u": None,
-    "g": None,
-    "r": None,
-    "i": None,
-    "z": None,
-    "y": None,
-}
-"""Do not use filter-varying line styles. All lines are solid.
-
-This is the default, when you have no specified a per-band color palette
-via the ``filter_linestyles`` argument."""
-
-plot_linestyles = {
-    "u": "--",
-    "g": (0, (3, 1, 1, 1)),
-    "r": "-.",
-    "i": "-",
-    "z": (0, (3, 1, 1, 1, 1, 1)),
-    "y": ":",
-}
-"""Alternative filter-varying line styles.
-
-These can be useful to show different line styles for each filter in a plot."""
-
-band_names_ugrizy = ["u", "g", "r", "i", "z", "y"]
-"""Names of passbands that will appear in the ``band`` nested column.
-
-This is the default, when you have no specified a per-band color palette
-via the ``band_names`` argument.
-"""
-
-band_names_lsst_ugrizy = ["LSST_u", "LSST_g", "LSST_r", "LSST_i", "LSST_z", "LSST_y"]
-"""Alternative names of passbands that could appear in the ``band`` nested column."""
+from lsdb_rubin.bands import (
+    band_names_ugrizy,
+    plot_filter_colors_white_background,
+    plot_linestyles_none,
+    plot_symbols,
+)
 
 
 def plot_light_curve(

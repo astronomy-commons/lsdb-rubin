@@ -56,3 +56,17 @@ dia_object = dia_object.compute()
 plot_light_curve(dia_object.iloc[0]["diaObjectForcedSource"])
 ```
 See the [demo notebook](https://github.com/astronomy-commons/lsdb-rubin/blob/main/docs/notebooks/plot_light_curves.ipynb) for more.
+
+### Plot a broadband SED
+Plot an object's per-band measurements (`u_psfMag`, `g_psfMag`, ...) against each band's effective wavelength.
+
+```python
+import lsdb
+from lsdb_rubin.plot_sed import plot_sed
+
+object = lsdb.open_catalog("<your-path-to>/lsdb-rubin/tests/data/mock_dp2_object_20")
+object = object.compute()
+
+plot_sed(object.iloc[0])
+```
+

@@ -6,3 +6,4 @@ Notebooks
 
     Tract-Patch Search <pre_executed/tract_patch_search>
     Plotting light curves <notebooks/plot_light_curves>
+    Plotting broadband SEDs <notebooks/plot_seds>
