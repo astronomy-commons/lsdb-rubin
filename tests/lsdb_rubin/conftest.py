@@ -42,15 +42,17 @@ def mock_dp1_frame(test_data_dir):
 
 
 @pytest.fixture
-def mock_dp2_frame(test_data_dir):
-    """Fixture to load the mock EDP2 catalog.
+def mock_dp2_dia_object_frame(test_data_dir):
+    """Fixture to load the mock EDP2 DIA object catalog.
 
     Entirely generated data following the schema of the ``dia_object_lc`` catalog of the
     DP2 release candidate - no real Rubin measurement is in here. In particular the
     ``diaObjectForcedSource`` light curves carry corrected error subcolumns, while
     ``diaSource`` does not, as in EDP2 itself.
     """
-    parquet_path = test_data_dir / "mock_dp2_20" / "dataset" / "Norder=0" / "Dir=0" / "Npix=0.parquet"
+    parquet_path = (
+        test_data_dir / "mock_dp2_dia_object_20" / "dataset" / "Norder=0" / "Dir=0" / "Npix=0.parquet"
+    )
     return read_parquet_file_to_pandas(parquet_path)
 
 
