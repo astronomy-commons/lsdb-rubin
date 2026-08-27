@@ -23,8 +23,8 @@ wavelength (``"nm"``, the default, or ``"angstrom"``, ``"micron"``), a frequency
 string, or as an ``astropy`` unit object. Whichever you pick, ``band_wavelengths`` and ``band_widths``
 are still given in nanometers; this converts them for display only.
 
-Both axes are left linear, and ``plot_sed`` draws on the current axes, so you can scale or
-invert either axis with matplotlib after the call.
+Both axes are left linear, and ``plot_sed`` draws on the axes you pass as ``ax`` - or on the
+current ones - so you can scale or invert either axis with matplotlib after the call.
 
 .. autodata:: lsdb_rubin.plot_sed.x_axis_quantities
 

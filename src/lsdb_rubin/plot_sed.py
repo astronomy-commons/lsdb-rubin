@@ -24,6 +24,7 @@ def plot_sed(
     filter_symbols=None,
     plot_kwargs=None,
     legend_kwargs=None,
+    ax=None,
 ):
     """Convenience method to plot a single object's broadband SED.
 
@@ -67,11 +68,13 @@ def plot_sed(
             Defaults to plot_filter_colors_white_background.
         filter_symbols (dict, optional): Mapping of band names to marker symbols.
             Defaults to plot_filter_symbols.
-        plot_kwargs (dict, optional): Additional keyword arguments for plt.errorbar(). Defaults to None.
-        legend_kwargs (dict, optional): Keyword arguments for plt.legend(). Defaults to None.
+        plot_kwargs (dict, optional): Additional keyword arguments for Axes.errorbar(). Defaults to None.
+        legend_kwargs (dict, optional): Keyword arguments for Axes.legend(). Defaults to None.
+        ax (matplotlib.axes.Axes, optional): Axes to draw on. Defaults to the current axes,
+            creating a figure to hold them when no figure is open yet.
 
     Returns:
-        matplotlib.figure.Figure: The figure the SED was drawn on.
+        matplotlib.axes.Axes: The axes the SED was drawn on.
     """
     if band_names is None:
         band_names = band_names_ugrizy
@@ -87,6 +90,8 @@ def plot_sed(
         plot_kwargs = {}
     if legend_kwargs is None:
         legend_kwargs = {}
+    if ax is None:
+        ax = plt.gca()
 
     x_unit, x_label = _x_axis(x_units)
 
@@ -99,7 +104,7 @@ def plot_sed(
             continue
         x_position, x_error = _band_x_extent(band, band_wavelengths, band_widths, x_unit)
 
-        plt.errorbar(
+        ax.errorbar(
             x_position,
             brightness,
             yerr=uncertainty,
@@ -111,14 +116,14 @@ def plot_sed(
         )
 
     if is_mag:
-        plt.gca().invert_yaxis()
+        ax.invert_yaxis()
 
-    plt.xlabel(x_label)
-    plt.ylabel(brightness_field)
-    plt.title(title)
-    plt.legend(**legend_kwargs)
+    ax.set_xlabel(x_label)
+    ax.set_ylabel(brightness_field)
+    ax.set_title(title)
+    ax.legend(**legend_kwargs)
 
-    return plt.gcf()
+    return ax
 
 
 x_axis_quantities = {
