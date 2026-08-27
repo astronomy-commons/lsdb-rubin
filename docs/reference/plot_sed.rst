@@ -1,11 +1,11 @@
 Plot Broadband SEDs
 =============================
 
-Plot an object's per-band measurements against each band's effective wavelength.
+Plot an object's per-band measurements against each band's wavelength.
 
 Each band is read straight off the object's own per-band columns - the ones named
 ``f"{band}_{brightness_field}"``, such as ``u_psfMag`` or ``g_psfFlux`` - and plotted
-against that band's effective wavelength. The matching uncertainty is read from
+against that band's wavelength. The matching uncertainty is read from
 ``f"{band}_{brightness_field}Err"``, when the object has such a column.
 
 If you want additional configuration, you may be better served creating your own plotting
@@ -23,9 +23,8 @@ wavelength (``"nm"``, the default, or ``"angstrom"``, ``"micron"``), a frequency
 string, or as an ``astropy`` unit object. Whichever you pick, ``band_wavelengths`` and ``band_widths``
 are still given in nanometers; this converts them for display only.
 
-Frequency, energy, and wavenumber all run the opposite way to wavelength, so the bands plot
-right to left, with ``u`` at the high end. Follow the call with ``plt.gca().invert_xaxis()``
-if you would rather keep them in ``ugrizy`` order.
+Both axes are left linear, and ``plot_sed`` draws on the current axes, so you can scale or
+invert either axis with matplotlib after the call.
 
 .. autodata:: lsdb_rubin.plot_sed.x_axis_quantities
 

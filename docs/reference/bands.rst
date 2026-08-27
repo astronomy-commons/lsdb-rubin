@@ -42,20 +42,20 @@ Band Names (``band_names``)
 .. autodata:: lsdb_rubin.bands.band_names_ugrizy
 .. autodata:: lsdb_rubin.plot_light_curve.band_names_lsst_ugrizy
 
-Effective wavelengths (``band_wavelengths``)
+Wavelengths (``band_wavelengths``)
 ---------------------------------------------
 
 The x-axis position of each band in :doc:`/reference/plot_sed`, expected to be a
-dictionary where keys are band names and values are the effective wavelength in
-nanometers.
+dictionary where keys are band names and values are a wavelength in nanometers.
 
 .. autodata:: lsdb_rubin.bands.band_wavelengths_ugrizy
 
-Effective widths (``band_widths``)
+Throughput FWHM (``band_widths``)
 ---------------------------------------------
 
 The horizontal bar drawn through each band's point in :doc:`/reference/plot_sed`,
-expected to be a dictionary where keys are band names and values are the effective
-width in nanometers.
+expected to be a dictionary where keys are band names and values are the full width
+at half maximum of the band's throughput, in nanometers. This is not the band's
+effective width - the bar shows the rough extent of the passband.
 
 .. autodata:: lsdb_rubin.bands.band_widths_ugrizy

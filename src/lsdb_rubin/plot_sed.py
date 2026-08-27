@@ -29,8 +29,8 @@ def plot_sed(
 
     Each band is read straight off the object's own per-band columns - the ones named
     ``f"{band}_{brightness_field}"``, such as ``u_psfMag`` or ``g_psfFlux`` - and plotted
-    against that band's effective wavelength, with a horizontal bar spanning the band's
-    effective width. The matching uncertainty is read from ``f"{band}_{brightness_field}Err"``,
+    against that band's wavelength, with a horizontal bar spanning the band's throughput
+    FWHM. The matching uncertainty is read from ``f"{band}_{brightness_field}Err"``,
     when the object has such a column.
 
     Bands the object has no column for, or whose value is null, are left out - so an
@@ -52,11 +52,11 @@ def plot_sed(
         band_names (list, optional): List of band names to plot, in plotting order. These
             are the column prefixes, not the values of any ``band`` column.
             Defaults to None (uses ugrizy).
-        band_wavelengths (dict, optional): Mapping of band name to effective wavelength,
+        band_wavelengths (dict, optional): Mapping of band name to wavelength,
             in nanometers. Defaults to band_wavelengths_ugrizy.
-        band_widths (dict, optional): Mapping of band name to width, in
+        band_widths (dict, optional): Mapping of band name to throughput FWHM, in
             nanometers, drawn as a horizontal bar through each point spanning half a
-            width either side of the effective wavelength. Bands missing from the
+            width either side of the band's wavelength. Bands missing from the
             mapping are drawn without a bar. Defaults to band_widths_ugrizy; pass an
             empty dict for bare points.
         x_units (str or astropy.units.UnitBase, optional): Units for the x-axis. Anything
@@ -122,10 +122,10 @@ def plot_sed(
 
 
 x_axis_quantities = {
-    "length": "effective wavelength",
-    "frequency": "effective frequency",
-    "energy": "effective energy",
-    "wavenumber": "effective wavenumber",
+    "length": "wavelength",
+    "frequency": "frequency",
+    "energy": "energy",
+    "wavenumber": "wavenumber",
 }
 """The physical quantities :func:`plot_sed` will plot a band against, mapped to the axis
 label each one draws. Any astropy unit of one of these is a usable ``x_units``, since
@@ -173,7 +173,7 @@ def _band_x_extent(band, band_wavelengths, band_widths, unit):
     reciprocals of wavelength - a band symmetric in wavelength is lopsided in those.
     """
     if band not in band_wavelengths:
-        raise KeyError(f"No effective wavelength for band {band!r}; check `band_wavelengths`")
+        raise KeyError(f"No wavelength for band {band!r}; check `band_wavelengths`")
     wavelength = band_wavelengths[band]
     position = _to_x_units(wavelength, unit)
     width = band_widths.get(band)
