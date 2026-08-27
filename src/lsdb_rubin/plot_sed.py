@@ -20,6 +20,7 @@ def plot_sed(
     band_wavelengths=None,
     band_widths=None,
     x_units="nm",
+    y_units=None,
     filter_colors=None,
     filter_symbols=None,
     plot_kwargs=None,
@@ -37,7 +38,7 @@ def plot_sed(
     Bands the object has no column for, or whose value is null, are left out - so an
     object measured only in ``griz`` is plotted as four points.
 
-    Note: The y-axis is upside-down when plotting magnitudes, since magnitude is bananas.
+    Note: The y-axis is upside-down whenever it carries magnitudes.
 
     If you want additional configuration, you may be better served creating your own
     plotting function, as this is intended for quick inspection of individual objects in
@@ -64,6 +65,13 @@ def plot_sed(
             astropy reads as a wavelength ("nm", "angstrom", "micron"), a frequency
             ("THz", "GHz"), an energy ("eV", "keV"), or a wavenumber ("1/cm"). Defaults
             to "nm".
+        y_units (str or astropy.units.UnitBase, optional): Units for the y-axis. The
+            stored values are taken to be nanojanskys for a flux_field and AB magnitudes
+            for a mag_field, and converted from there at each band's wavelength through
+            astropy's spectral flux density equivalencies - so "nJy", "ABmag", "FLAM",
+            or any unit astropy can reach, such as u.erg / u.s / u.cm**2 / u.AA. See
+            y_unit_aliases for the shorthand names. Defaults to None, which plots the
+            values as they are stored.
         filter_colors (dict, optional): Mapping of band names to colors.
             Defaults to plot_filter_colors_white_background.
         filter_symbols (dict, optional): Mapping of band names to marker symbols.
@@ -97,12 +105,17 @@ def plot_sed(
 
     is_mag = flux_field is None
     brightness_field = flux_field or mag_field
+    column_unit = mag_column_unit if is_mag else flux_column_unit
+    y_unit, y_label, invert_y = _y_axis(y_units, brightness_field, column_unit, is_mag)
 
     for band in band_names:
         brightness, uncertainty = _band_measurement(obj, band, brightness_field)
         if brightness is None:
             continue
         x_position, x_error = _band_x_extent(band, band_wavelengths, band_widths, x_unit)
+        brightness, uncertainty = _band_y_extent(
+            brightness, uncertainty, band_wavelengths[band], column_unit, y_unit
+        )
 
         ax.errorbar(
             x_position,
@@ -115,11 +128,11 @@ def plot_sed(
             **plot_kwargs,
         )
 
-    if is_mag:
+    if invert_y:
         ax.invert_yaxis()
 
     ax.set_xlabel(x_label)
-    ax.set_ylabel(brightness_field)
+    ax.set_ylabel(y_label)
     ax.set_title(title)
     ax.legend(**legend_kwargs)
 
@@ -187,3 +200,66 @@ def _band_x_extent(band, band_wavelengths, band_widths, unit):
     half_width = float(width) / 2
     lower, upper = sorted(_to_x_units([wavelength - half_width, wavelength + half_width], unit))
     return position, [[position - lower], [upper - position]]
+
+
+flux_column_unit = u.nJy
+"""The units a flux column is taken to be in, when converting to ``y_units``.
+
+Rubin data products store fluxes in nanojanskys."""
+
+mag_column_unit = u.ABmag
+"""The units a magnitude column is taken to be in, when converting to ``y_units``.
+
+Rubin data products store AB magnitudes."""
+
+y_unit_aliases = {
+    "ABmag": u.ABmag,
+    "STmag": u.STmag,
+    "FLAM": u.erg / (u.s * u.cm**2 * u.AA),
+    "FNU": u.erg / (u.s * u.cm**2 * u.Hz),
+    "PHOTLAM": u.photon / (u.s * u.cm**2 * u.AA),
+}
+"""Shorthand names :func:`plot_sed` accepts as ``y_units``, for the magnitude systems and
+spectral flux densities that ``astropy.units`` will not parse from a bare string."""
+
+
+def _y_axis(y_units, brightness_field, column_unit, is_mag):
+    """Resolve the requested y-axis units into an astropy unit, its axis label, and
+    whether the axis wants inverting."""
+    if y_units is None:
+        return None, brightness_field, is_mag
+    unit = u.Unit(y_unit_aliases.get(y_units, y_units) if isinstance(y_units, str) else y_units)
+    try:
+        (1.0 * column_unit).to_value(unit, u.spectral_density(500 * u.nm))
+    except u.UnitConversionError as error:
+        raise ValueError(
+            f"Cannot plot {brightness_field}, which is read as {column_unit}, in {unit}; "
+            'y_units must be a unit a flux density converts into, such as "nJy", "ABmag", '
+            'or "FLAM"'
+        ) from error
+    label = f"{brightness_field} ({unit.to_string('unicode')})"
+    return unit, label, isinstance(unit, u.MagUnit)
+
+
+def _to_y_units(brightness, wavelength, column_unit, unit):
+    """Convert a brightness in the column's own units - or a list of them - into the y-axis
+    units, at the wavelength in nanometers of the band it was measured in."""
+    equivalencies = u.spectral_density(wavelength * u.nm)
+    return (brightness * column_unit).to_value(unit, equivalencies)
+
+
+def _band_y_extent(brightness, uncertainty, wavelength, column_unit, unit):
+    """Where a band's measurement sits on the y-axis, as ``(value, bar below and above)``.
+
+    Without a ``unit`` to convert into, the column's own values are plotted as they are.
+    The bar is converted from its endpoints rather than scaled, for the same reason the
+    x-axis bars are.
+    """
+    if unit is None:
+        return brightness, uncertainty
+    value = _to_y_units(brightness, wavelength, column_unit, unit)
+    if uncertainty is None:
+        return value, None
+    edges = [brightness - uncertainty, brightness + uncertainty]
+    lower, upper = sorted(_to_y_units(edges, wavelength, column_unit, unit))
+    return value, [[value - lower], [upper - value]]

@@ -23,10 +23,29 @@ wavelength (``"nm"``, the default, or ``"angstrom"``, ``"micron"``), a frequency
 string, or as an ``astropy`` unit object. Whichever you pick, ``band_wavelengths`` and ``band_widths``
 are still given in nanometers; this converts them for display only.
 
-Both axes are left linear, and ``plot_sed`` draws on the axes you pass as ``ax`` - or on the
-current ones - so you can scale or invert either axis with matplotlib after the call.
-
 .. autodata:: lsdb_rubin.plot_sed.x_axis_quantities
+
+Y-axis units
+--------------------------------------------------
+
+``y_units`` picks what the y-axis measures. By default the values are plotted as the catalog
+stores them - nanojanskys for a ``flux_field``, AB magnitudes for a ``mag_field``. Pass
+``y_units`` and they are converted from there through
+`astropy's spectral flux density equivalencies
+<https://docs.astropy.org/en/stable/units/equivalencies.html#spectral-flux-and-luminosity-density-units>`_,
+at each band's own wavelength: ``"nJy"``, ``"ABmag"``, ``"FLAM"``, or any unit astropy can
+reach, such as ``u.erg / u.s / u.cm**2 / u.AA``.
+
+.. autodata:: lsdb_rubin.plot_sed.y_unit_aliases
+.. autodata:: lsdb_rubin.plot_sed.flux_column_unit
+.. autodata:: lsdb_rubin.plot_sed.mag_column_unit
+
+Scaling and inverting the axes
+--------------------------------------------------
+
+Both axes are left linear, and ``plot_sed`` draws on the axes you pass as ``ax`` - or on the
+current ones - so you can scale or invert either axis with matplotlib after the call. The
+y-axis is automatically inverted whenever what it carries is a magnitude.
 
 Colors, symbols, wavelengths, and band names
 --------------------------------------------------
