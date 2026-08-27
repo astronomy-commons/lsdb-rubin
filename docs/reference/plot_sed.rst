@@ -36,7 +36,7 @@ stores them - nanojanskys for a ``flux_field``, AB magnitudes for a ``mag_field`
 at each band's own wavelength: ``"nJy"``, ``"ABmag"``, ``"FLAM"``, or any unit astropy can
 reach, such as ``u.erg / u.s / u.cm**2 / u.AA``.
 
-The axis is labelled with what it measures rather than the column it came from, worked out
+The axis is labeled with what it measures rather than the column it came from, worked out
 from the unit's ``physical_type`` - so ``"nJy"`` and ``"FLAM"`` both read as a flux density,
 with the units after it saying which, and either magnitude system reads as a magnitude. The
 column the measurements were read from titles the legend instead.
