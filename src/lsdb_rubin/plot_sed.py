@@ -54,7 +54,7 @@ def plot_sed(
             Defaults to None (uses ugrizy).
         band_wavelengths (dict, optional): Mapping of band name to effective wavelength,
             in nanometers. Defaults to band_wavelengths_ugrizy.
-        band_widths (dict, optional): Mapping of band name to effective width, in
+        band_widths (dict, optional): Mapping of band name to width, in
             nanometers, drawn as a horizontal bar through each point spanning half a
             width either side of the effective wavelength. Bands missing from the
             mapping are drawn without a bar. Defaults to band_widths_ugrizy; pass an

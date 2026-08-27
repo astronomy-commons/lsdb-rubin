@@ -20,7 +20,7 @@ X-axis units
 ``x_units`` picks what the x-axis measures. It takes anything ``astropy.units`` reads as a
 wavelength (``"nm"``, the default, or ``"angstrom"``, ``"micron"``), a frequency (``"THz"``,
 ``"GHz"``, ``"Hz"``), an energy (``"eV"``, ``"keV"``), or a wavenumber (``"1/cm"``) - as a
-string, or as a unit object. Whichever you pick, ``band_wavelengths`` and ``band_widths``
+string, or as an ``astropy`` unit object. Whichever you pick, ``band_wavelengths`` and ``band_widths``
 are still given in nanometers; this converts them for display only.
 
 Frequency, energy, and wavenumber all run the opposite way to wavelength, so the bands plot
