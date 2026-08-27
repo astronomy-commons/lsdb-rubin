@@ -65,7 +65,5 @@ def mock_dp2_object_frame(test_data_dir):
     ``coord_ra``/``coord_dec`` rather than ``ra``/``dec``, and carry ``objectForcedSource``
     light curves with corrected error subcolumns.
     """
-    parquet_path = (
-        test_data_dir / "mock_dp2_object_20" / "dataset" / "Norder=0" / "Dir=0" / "Npix=0.parquet"
-    )
+    parquet_path = test_data_dir / "mock_dp2_object_20" / "dataset" / "Norder=0" / "Dir=0" / "Npix=0.parquet"
     return read_parquet_file_to_pandas(parquet_path)
