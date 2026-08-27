@@ -12,35 +12,8 @@ To see the method and configuration in action, check out the
 
 .. autofunction:: lsdb_rubin.plot_light_curve.plot_light_curve
 
-Color palettes (``filter_colors``)
------------------------------------------
+Colors, symbols, line styles, and band names
+--------------------------------------------------
 
-A color palette will be used to distinguish multi-band data, and is expected
-to be a dictionary, where keys are band names, and values are the color, as 
-accepted by matplotlib.
-
-.. autodata:: lsdb_rubin.plot_light_curve.plot_filter_colors_white_background
-.. autodata:: lsdb_rubin.plot_light_curve.plot_filter_colors_black_background
-.. autodata:: lsdb_rubin.plot_light_curve.plot_filter_colors_rainbow
-
-Symbols (``filter_symbols``)
------------------------------------------
-
-Symbols will be used to distinguish multi-band data, and is expected
-to be a dictionary, where keys are band names, and values are the symbol
-marker, as accepted by matplotlib.
-
-.. autodata:: lsdb_rubin.plot_light_curve.plot_symbols
-.. autodata:: lsdb_rubin.plot_light_curve.plot_filter_symbols
-
-Line Styles (``filter_linestyles``)
------------------------------------------
-
-.. autodata:: lsdb_rubin.plot_light_curve.plot_linestyles_none
-.. autodata:: lsdb_rubin.plot_light_curve.plot_linestyles
-
-Band Names (``band_names``)
------------------------------------------
-
-.. autodata:: lsdb_rubin.plot_light_curve.band_names_ugrizy
-.. autodata:: lsdb_rubin.plot_light_curve.band_names_lsst_ugrizy
+``filter_colors``, ``filter_symbols``, ``filter_linestyles``, and ``band_names`` all take
+the shared band defaults. See :doc:`/reference/bands`.

@@ -1,6 +1,7 @@
 from pathlib import Path
 
 import lsdb
+import matplotlib.pyplot as plt
 import pytest
 from hats.io.file_io import read_parquet_file_to_pandas
 from skymap_convert import ConvertedSkymapReader
@@ -8,6 +9,19 @@ from skymap_convert import ConvertedSkymapReader
 TEST_DIR = Path(__file__).parent.parent
 SKYMAP_DIR_NAME = "skymaps"
 SMALL_SKY_DIR_NAME = "small_sky"
+
+
+@pytest.fixture(autouse=True)
+def figure():
+    """A fresh figure for every test.
+
+    The plotting methods draw on whatever axes are current, so without this a test picks up
+    the lines the previous one left behind, and its assertions see both plots at once.
+    """
+    plt.close("all")
+    own_figure = plt.figure()
+    yield own_figure
+    plt.close("all")
 
 
 @pytest.fixture
