@@ -77,7 +77,9 @@ def plot_sed(
         filter_symbols (dict, optional): Mapping of band names to marker symbols.
             Defaults to plot_filter_symbols.
         plot_kwargs (dict, optional): Additional keyword arguments for Axes.errorbar(). Defaults to None.
-        legend_kwargs (dict, optional): Keyword arguments for Axes.legend(). Defaults to None.
+        legend_kwargs (dict, optional): Keyword arguments for Axes.legend(). The legend is
+            titled with the column the measurements were read from. Pass a title of your own
+            to override that, or None to drop it. Defaults to None.
         ax (matplotlib.axes.Axes, optional): Axes to draw on. Defaults to the current axes,
             creating a figure to hold them when no figure is open yet.
 
@@ -134,7 +136,7 @@ def plot_sed(
     ax.set_xlabel(x_label)
     ax.set_ylabel(y_label)
     ax.set_title(title)
-    ax.legend(**legend_kwargs)
+    ax.legend(**{"title": brightness_field, **legend_kwargs})
 
     return ax
 
@@ -223,6 +225,30 @@ y_unit_aliases = {
 spectral flux densities that ``astropy.units`` will not parse from a bare string."""
 
 
+y_axis_quantities = {
+    "spectral flux density": "flux density",
+    "spectral flux density wav": "flux density",
+    "photon flux density": "photon flux density",
+    "photon flux density wav": "photon flux density",
+    "energy flux": "energy flux",
+}
+"""The physical quantities :func:`plot_sed` names on the y-axis, mapped to the axis label
+each one draws. A flux density per unit frequency and one per unit wavelength are different
+physical types - ``astropy`` calls them ``spectral flux density`` and ``spectral flux
+density wav`` - but both read as a flux density on a label, with the units after it saying
+which. ``energy flux`` covers the ν·F_ν and λ·F_λ an SED is often drawn as."""
+
+
+def _y_quantity(unit):
+    """What a y-axis unit measures, for its axis label."""
+    if isinstance(unit, u.MagUnit):
+        return "magnitude"
+    for physical_type, quantity in y_axis_quantities.items():
+        if unit.physical_type == physical_type:
+            return quantity
+    return None
+
+
 def _y_axis(y_units, brightness_field, column_unit, is_mag):
     """Resolve the requested y-axis units into an astropy unit, its axis label, and
     whether the axis wants inverting."""
@@ -237,7 +263,9 @@ def _y_axis(y_units, brightness_field, column_unit, is_mag):
             'y_units must be a unit a flux density converts into, such as "nJy", "ABmag", '
             'or "FLAM"'
         ) from error
-    label = f"{brightness_field} ({unit.to_string('unicode')})"
+    quantity = _y_quantity(unit)
+    units_shown = unit.to_string("unicode")
+    label = f"{quantity} ({units_shown})" if quantity else units_shown
     return unit, label, isinstance(unit, u.MagUnit)
 
 
