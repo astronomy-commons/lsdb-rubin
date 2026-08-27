@@ -135,40 +135,40 @@ def test_plot_x_axis_period_doubled(mock_dp1_frame):
     assert ax.yaxis_inverted()
 
 
-def test_plot_corrected_err_mag(mock_dp2_frame):
+def test_plot_corrected_err_mag(mock_dp2_dia_object_frame):
     """Corrected magnitude errors are plotted when we ask for them."""
-    lc = mock_dp2_frame.iloc[0]["diaObjectForcedSource"]
+    lc = mock_dp2_dia_object_frame.iloc[0]["diaObjectForcedSource"]
     assert not np.allclose(lc["psfMagErr"], lc["psfMagErr_corrected"])
 
     assert_plots_errors(lc, "psfMagErr_corrected", corrected_err=True)
 
 
-def test_plot_corrected_err_flux(mock_dp2_frame):
+def test_plot_corrected_err_flux(mock_dp2_dia_object_frame):
     """The corrected error field is derived from the flux field name, too."""
-    lc = mock_dp2_frame.iloc[0]["diaObjectForcedSource"]
+    lc = mock_dp2_dia_object_frame.iloc[0]["diaObjectForcedSource"]
 
     assert_plots_errors(lc, "psfFluxErr_corrected", flux_field="psfFlux", corrected_err=True)
 
 
-def test_plot_corrected_err_diff_flux(mock_dp2_frame):
+def test_plot_corrected_err_diff_flux(mock_dp2_dia_object_frame):
     """Difference-image fluxes have their own corrected error field."""
-    lc = mock_dp2_frame.iloc[0]["diaObjectForcedSource"]
+    lc = mock_dp2_dia_object_frame.iloc[0]["diaObjectForcedSource"]
 
     assert_plots_errors(lc, "psfDiffFluxErr_corrected", flux_field="psfDiffFlux", corrected_err=True)
 
 
-def test_plot_original_err_by_default(mock_dp2_frame):
+def test_plot_original_err_by_default(mock_dp2_dia_object_frame):
     """We plot the original errors unless corrected ones are asked for, even in DP2 data."""
-    lc = mock_dp2_frame.iloc[0]["diaObjectForcedSource"]
+    lc = mock_dp2_dia_object_frame.iloc[0]["diaObjectForcedSource"]
     assert "psfMagErr_corrected" in lc.columns
 
     assert_plots_errors(lc, "psfMagErr")
     assert_plots_errors(lc, "psfMagErr", corrected_err=False)
 
 
-def test_plot_corrected_err_missing(mock_dp2_frame):
+def test_plot_corrected_err_missing(mock_dp2_dia_object_frame):
     """diaSource has no corrected errors, in the mock as in EDP2, so we fail loudly."""
-    lc = mock_dp2_frame.iloc[0]["diaSource"]
+    lc = mock_dp2_dia_object_frame.iloc[0]["diaSource"]
     assert "psfMagErr_corrected" not in lc.columns
 
     plt.figure()
@@ -176,9 +176,9 @@ def test_plot_corrected_err_missing(mock_dp2_frame):
         plot_light_curve(lc, corrected_err=True)
 
 
-def test_plot_corrected_err_missing_for_brightness_field(mock_dp2_frame):
+def test_plot_corrected_err_missing_for_brightness_field(mock_dp2_dia_object_frame):
     """Only some brightness fields have a corrected counterpart, scienceMag is not one."""
-    lc = mock_dp2_frame.iloc[0]["diaSource"]
+    lc = mock_dp2_dia_object_frame.iloc[0]["diaSource"]
     assert "scienceMagErr" in lc.columns
 
     plt.figure()
