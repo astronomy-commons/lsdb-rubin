@@ -37,7 +37,7 @@ def test_plot_basic(mock_dp2_object_frame):
 
     assert ax.get_title() == "LSST broadband SED"
     assert ax.xaxis.get_label_text() == "wavelength (nm)"
-    assert ax.yaxis.get_label_text() == "psfMag"
+    assert ax.yaxis.get_label_text() == "magnitude (mag(AB))"
     assert ax.get_legend_handles_labels()[-1] == list("ugizy")
 
 
@@ -176,19 +176,19 @@ def test_plot_x_units_wrong_quantity(mock_dp2_object_frame):
 
 
 @pytest.mark.parametrize(
-    ("kwargs", "brightness_field", "inverted"),
+    ("kwargs", "brightness_field", "label", "inverted"),
     [
-        ({}, "psfMag", True),
-        ({"flux_field": "psfFlux"}, "psfFlux", False),
-        ({"mag_field": "kronRad"}, "kronRad", True),
+        ({}, "psfMag", "magnitude (mag(AB))", True),
+        ({"flux_field": "psfFlux"}, "psfFlux", "flux density (nJy)", False),
+        ({"mag_field": "kronRad"}, "kronRad", "magnitude (mag(AB))", True),
     ],
 )
-def test_plot_y_axis(mock_dp2_object_frame, kwargs, brightness_field, inverted):
-    """The y-axis reads its column untouched and is labeled with it."""
+def test_plot_y_axis(mock_dp2_object_frame, kwargs, brightness_field, label, inverted):
+    """The y-axis reads its column untouched, and is labeled in the column's own units."""
     obj = mock_dp2_object_frame.iloc[0]
     ax = plot_sed(obj, **kwargs)
 
-    assert ax.yaxis.get_label_text() == brightness_field
+    assert ax.yaxis.get_label_text() == label
     for line, band in zip(ax.lines, measured_bands(obj, brightness_field), strict=True):
         assert line.get_ydata()[0] == pytest.approx(obj[f"{band}_{brightness_field}"])
     assert ax.yaxis_inverted() == inverted

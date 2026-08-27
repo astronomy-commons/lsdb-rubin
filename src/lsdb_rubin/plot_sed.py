@@ -70,8 +70,8 @@ def plot_sed(
             for a mag_field, and converted from there at each band's wavelength through
             astropy's spectral flux density equivalencies - so "nJy", "ABmag", "FLAM",
             or any unit astropy can reach, such as u.erg / u.s / u.cm**2 / u.AA. See
-            y_unit_aliases for the shorthand names. Defaults to None, which plots the
-            values as they are stored.
+            y_unit_aliases for the shorthand names. Defaults to None, which leaves the
+            values as they are stored and labels the axis in those same units.
         filter_colors (dict, optional): Mapping of band names to colors.
             Defaults to plot_filter_colors_white_background.
         filter_symbols (dict, optional): Mapping of band names to marker symbols.
@@ -105,10 +105,9 @@ def plot_sed(
 
     x_unit, x_label = _x_axis(x_units)
 
-    is_mag = flux_field is None
     brightness_field = flux_field or mag_field
-    column_unit = mag_column_unit if is_mag else flux_column_unit
-    y_unit, y_label, invert_y = _y_axis(y_units, brightness_field, column_unit, is_mag)
+    column_unit = mag_column_unit if flux_field is None else flux_column_unit
+    y_unit, y_label, invert_y = _y_axis(y_units, brightness_field, column_unit)
 
     for band in band_names:
         brightness, uncertainty = _band_measurement(obj, band, brightness_field)
@@ -249,11 +248,11 @@ def _y_quantity(unit):
     return None
 
 
-def _y_axis(y_units, brightness_field, column_unit, is_mag):
+def _y_axis(y_units, brightness_field, column_unit):
     """Resolve the requested y-axis units into an astropy unit, its axis label, and
     whether the axis wants inverting."""
     if y_units is None:
-        return None, brightness_field, is_mag
+        y_units = column_unit
     unit = u.Unit(y_unit_aliases.get(y_units, y_units) if isinstance(y_units, str) else y_units)
     try:
         (1.0 * column_unit).to_value(unit, u.spectral_density(500 * u.nm))
@@ -279,12 +278,9 @@ def _to_y_units(brightness, wavelength, column_unit, unit):
 def _band_y_extent(brightness, uncertainty, wavelength, column_unit, unit):
     """Where a band's measurement sits on the y-axis, as ``(value, bar below and above)``.
 
-    Without a ``unit`` to convert into, the column's own values are plotted as they are.
     The bar is converted from its endpoints rather than scaled, for the same reason the
     x-axis bars are.
     """
-    if unit is None:
-        return brightness, uncertainty
     value = _to_y_units(brightness, wavelength, column_unit, unit)
     if uncertainty is None:
         return value, None

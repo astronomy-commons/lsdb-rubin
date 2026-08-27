@@ -28,9 +28,10 @@ are still given in nanometers; this converts them for display only.
 Y-axis units
 --------------------------------------------------
 
-``y_units`` picks what the y-axis measures. By default the values are plotted as the catalog
-stores them - nanojanskys for a ``flux_field``, AB magnitudes for a ``mag_field``. Pass
-``y_units`` and they are converted from there through
+``y_units`` picks what the y-axis measures. The values are read as the catalog stores them -
+nanojanskys for a ``flux_field``, AB magnitudes for a ``mag_field`` - and left in those units,
+and labelled as such, unless you ask for others. Pass ``y_units`` and they are converted
+through
 `astropy's spectral flux density equivalencies
 <https://docs.astropy.org/en/stable/units/equivalencies.html#spectral-flux-and-luminosity-density-units>`_,
 at each band's own wavelength: ``"nJy"``, ``"ABmag"``, ``"FLAM"``, or any unit astropy can
