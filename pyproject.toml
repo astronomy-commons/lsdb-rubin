@@ -17,7 +17,7 @@ classifiers = [
 dynamic = ["version"]
 requires-python = ">=3.11"
 dependencies = [
-    "astropy>=7.2.0", # For unit conversion when plotting
+    "astropy>=8.0.1", # For unit conversion when plotting
     "lsdb>=0.10.4", # For catalog operations
     "skymap-convert>=0.1.1", # For skymap-based methods, such as tract_patch_search
 ]
